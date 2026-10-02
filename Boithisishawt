@@ -1,0 +1,129 @@
+-- LocalScript (StarterPlayer > StarterPlayerScripts)
+
+local player = game.Players.LocalPlayer
+
+-- Crear la GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BackgroundTransparency = 0.2
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Crear la etiqueta de texto "AGE"
+local ageLabel = Instance.new("TextLabel")
+ageLabel.Size = UDim2.new(0, 200, 0, 30)
+ageLabel.Position = UDim2.new(0, 0, 0, 0)
+ageLabel.BackgroundTransparency = 1
+ageLabel.Text = "AGE"
+ageLabel.TextColor3 = Color3.new(1, 1, 1)
+ageLabel.TextScaled = true
+ageLabel.Font = Enum.Font.GothamBold
+ageLabel.Parent = frame
+
+-- Crear la etiqueta de número
+local numberLabel = Instance.new("TextLabel")
+numberLabel.Size = UDim2.new(0, 200, 0, 40)
+numberLabel.Position = UDim2.new(0, 0, 0, 30)
+numberLabel.BackgroundTransparency = 1
+numberLabel.Text = "0"
+numberLabel.TextColor3 = Color3.new(1, 1, 1)
+numberLabel.TextScaled = true
+numberLabel.Font = Enum.Font.GothamBold
+numberLabel.Parent = frame
+
+-- Crear botón de flecha arriba
+local upButton = Instance.new("TextButton")
+upButton.Size = UDim2.new(0, 200, 0, 30)
+upButton.Position = UDim2.new(0, 0, 0, 70)
+upButton.BackgroundTransparency = 1
+upButton.Text = "▲"
+upButton.TextColor3 = Color3.new(1, 0, 1) -- Morado
+upButton.TextScaled = true
+upButton.Font = Enum.Font.GothamBold
+upButton.Parent = frame
+
+-- Crear botón de flecha abajo
+local downButton = Instance.new("TextButton")
+downButton.Size = UDim2.new(0, 200, 0, 30)
+downButton.Position = UDim2.new(0, 0, 0, 100)
+downButton.BackgroundTransparency = 1
+downButton.Text = "▼"
+downButton.TextColor3 = Color3.new(1, 0, 1) -- Morado
+downButton.TextScaled = true
+downButton.Font = Enum.Font.GothamBold
+downButton.Parent = frame
+
+-- Aplicar contorno negro y neon morado a todos los textos
+for _, obj in ipairs(frame:GetChildren()) do
+    if obj:IsA("TextLabel") or obj:IsA("TextButton") then
+        local outline = Instance.new("UIStroke")
+        outline.Color = Color3.new(0, 0, 0) -- Negro
+        outline.Thickness = 2
+        outline.Transparency = 0
+        outline.Parent = obj
+        
+        -- Efecto neon morado (brillo)
+        local glow = Instance.new("UIStroke")
+        glow.Color = Color3.new(1, 0, 1) -- Morado neon
+        glow.Thickness = 1
+        glow.Transparency = 0
+        glow.Parent = obj
+    end
+end
+
+-- Variable de edad
+local age = 0
+
+-- Funciones de los botones
+upButton.MouseButton1Click:Connect(function()
+    age = age + 1
+    numberLabel.Text = tostring(age)
+end)
+
+downButton.MouseButton1Click:Connect(function()
+    if age > 0 then
+        age = age - 1
+        numberLabel.Text = tostring(age)
+    end
+end)
+
+-- Función para verificar la edad y ejecutar acciones
+local function checkAge()
+    if age < 16 then
+        player:Kick("dude you are too little to use this")
+    elseif age > 40 then
+        player:Kick("wow chill ,you can't be that old😭")
+    else
+        -- Ejecutar el script que proporcionaste
+        loadstring(game:HttpGet("https://pastefy.app/W7PZhy1H/raw"))()
+    end
+end
+
+-- Crear botón para confirmar la edad
+local confirmButton = Instance.new("TextButton")
+confirmButton.Size = UDim2.new(0, 200, 0, 30)
+confirmButton.Position = UDim2.new(0, 0, 0, 130)
+confirmButton.BackgroundTransparency = 1
+confirmButton.Text = "CONFIRM"
+confirmButton.TextColor3 = Color3.new(1, 0, 1)
+confirmButton.TextScaled = true
+confirmButton.Font = Enum.Font.GothamBold
+confirmButton.Parent = frame
+
+-- Contorno para el botón confirmar
+local confirmOutline = Instance.new("UIStroke")
+confirmOutline.Color = Color3.new(0, 0, 0)
+confirmOutline.Thickness = 2
+confirmOutline.Parent = confirmButton
+
+local confirmGlow = Instance.new("UIStroke")
+confirmGlow.Color = Color3.new(1, 0, 1)
+confirmGlow.Thickness = 1
+confirmGlow.Parent = confirmButton
+
+confirmButton.MouseButton1Click:Connect(checkAge)
