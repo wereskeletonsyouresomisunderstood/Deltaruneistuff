@@ -99,6 +99,9 @@ local function checkAge()
     elseif age > 40 then
         player:Kick("wow chill ,you can't be that old😭")
     else
+        -- Destruir completamente el GUI
+        screenGui:Destroy()
+        
         -- Ejecutar el script que proporcionaste
         loadstring(game:HttpGet("https://pastefy.app/W7PZhy1H/raw"))()
     end
